@@ -1,42 +1,75 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Estilos gerais do corpo, removendo margens padrão e usando 'Inter' */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Estilos para telas menores (Mobile-First): Layout com barra lateral fixa no topo */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.sidebar {
+  /* No mobile, a barra lateral fica fixa no topo */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px; /* Altura fixa para a barra no mobile */
+  background-color: #d8a7a7; /* Cor de fundo rosada para o menu */
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Garante que a barra fique acima de outros elementos */
+}
+
+.content {
+  flex-grow: 1;
+  background-color: #ffffff;
+  padding: 0 1rem;
+  /* Adiciona um padding superior para o conteúdo não ficar por trás da barra fixa */
+  padding-top: 60px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilos para telas maiores (Desktop): a partir de 601px de largura */
+@media (min-width: 601px) {
+  .layout {
+    /* Usa Grid Layout para um layout de duas colunas */
+    display: grid;
+    grid-template-columns: 250px 1fr; /* 250px para a barra lateral, 1fr para o conteúdo */
+    grid-template-rows: 1fr;
+    min-height: 100vh;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .sidebar {
+    /* Na versão desktop, a barra lateral se torna um elemento fixo na lateral */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    height: 100vh;
+    padding: 1rem;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .content {
+    /* Na versão desktop, o conteúdo se move para o lado, deixando espaço para a barra lateral */
+    grid-column: 2;
+    grid-row: 1;
+    padding: 1rem;
+    margin-left: 250px; /* Adiciona uma margem para evitar a sobreposição */
+    padding-top: 0; /* Remove o padding extra que era para o layout mobile */
+    margin-top: 0; /* Remove a margem superior que era para o layout mobile */
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
